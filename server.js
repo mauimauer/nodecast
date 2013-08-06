@@ -22,15 +22,18 @@ app.use(function(req, res, next) {
 		next();
 	});
 });
-app.use(express.bodyParser());
+app.disable('x-powered-by');
 app.use(express.static(__dirname + '/public'));
-app.use(express.methodOverride());
-app.use(function(req, res, next){
-  console.log('%s %s', req.method, req.url);
-  next();
-});
+app.use(express.logger());
 app.use(app.router);
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(function (req, res, next) {
+	res.removeHeader("Connection");
+	next();
+});
 
+app.disable('x-powered-by');
 
 var server = http.createServer(app);
 
@@ -154,11 +157,11 @@ function setupApps(addr) {
 function setupRoutes(addr) {
 	app.get("/ssdp/device-desc.xml", function(req, res) {
 		fs.readFile('./device-desc.xml', 'utf8', function (err,data) {
-			data = data.replace("#uuid#", myUuid).replace("#base#","http://"+addr+":8008/");
+			data = data.replace("#uuid#", myUuid).replace("#base#","http://"+req.headers.host);
 			res.type('xml');
 			res.setHeader("Access-Control-Allow-Method", "GET, POST, DELETE, OPTIONS");
 			res.setHeader("Access-Control-Expose-Headers", "Location");
-			res.setHeader("Application-URL", "http://"+addr+":8008/apps");
+			res.setHeader("Application-Url", "http://"+req.headers.host+"/apps");
 			res.send(data);
 		});
 	});
@@ -187,19 +190,9 @@ function setupRoutes(addr) {
 
 		res.setHeader("Access-Control-Allow-Method", "GET, POST, DELETE, OPTIONS");
 		res.setHeader("Access-Control-Expose-Headers", "Location");
+		res.setHeader("Content-Length", "0");
+		res.setHeader("Content-Type", "text/html; charset=UTF-8");
 		res.send(204, "");
-
-	});
-
-	app.delete("*", function(req, res) {
-
-	});
-
-	app.get("*", function(req, res) {
-
-	});
-
-	app.post("*", function(req, res) {
 
 	});
 }
