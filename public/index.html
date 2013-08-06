@@ -1,0 +1,40 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="js/jquery.2.0.3.min.js"></script>
+        <script>
+            var ws = new WebSocket("ws://localhost:8008/stage");
+            var windows = {};
+
+            ws.onmessage = function (e) {
+                var cmd = $.parseJSON(e.data);
+
+                if(cmd.cmd == "show") {
+                    $('#idle_container').fadeOut('slow');
+
+                    var url = cmd.url;
+                    var windowName = "popUp";//$(this).attr("name");
+                    var windowSize = "width=1280,height=720";
+
+                    windows[cmd.app] = window.open(url, windowName, windowSize);
+                   // window.location = url;
+                } else if(cmd.cmd == "idle") {
+                    $('#idle_container').fadeIn('slow');
+                } else if(cmd.cmd == "close") {
+                    $('#idle_container').fadeIn('slow');
+                    windows[cmd.app].close();
+                }
+            };
+        </script>
+	</head>
+	<body>
+        <div id="idle_container" style="display: none;">
+            <div id="idle">
+            </div>
+            <div id="idle_top">
+                <h3>Ready to cast.</h3>
+            </div>
+        </div>
+		<iframe id="cast" style="width: 100%; height:100%;"/>
+	</body>
+<html>

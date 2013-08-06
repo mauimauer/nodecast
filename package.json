@@ -1,0 +1,14 @@
+{
+	"name": "nodecast",
+	"main": "index.html",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"peer-ssdp": "*",
+		"express": "*",
+		"node-uuid": "*",
+		"websocket": "*",
+		"querystring":"*",
+		"superagent":"*"
+	}
+}
