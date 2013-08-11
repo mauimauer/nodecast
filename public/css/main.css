@@ -16,17 +16,17 @@ iframe {
 	border: 0;
 }
 
-#idle {
-    position: fixed;
-    left: -10px;
-    right: -10px;
-    top: -10px;
-    bottom: -10px;
-    z-index: 100;
-    background: url('../img/aurora.jpg');
-    background-size: cover;
-    -webkit-filter: blur(5px);
+#idle, img.bg {
+        min-height: 100%;
+        min-width: 100%;
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+	z-index:-9999;
 }
+
 #idle_top {
     position: absolute;
     left: 0px;

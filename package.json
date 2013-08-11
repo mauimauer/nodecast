@@ -9,6 +9,7 @@
 		"node-uuid": "*",
 		"websocket": "*",
 		"querystring":"*",
-		"superagent":"*"
+		"superagent":"*",
+		"optimist":"*"
 	}
 }
