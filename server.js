@@ -92,7 +92,7 @@ wssRouter.mount('/connection','', function(request) {
 			}));
 
 			wssRouter.mount("/receiver/"+cmd.name, '', function(request) {
-				var receiverConnection = request.accept(request.origin);	
+				var receiverConnection = request.accept(request.origin);
 				var appName = request.resourceURL.pathname.replace('/receiver/','').replace('Dev','');
 				Apps.registered[appName].registerReceiver(receiverConnection);
 			});
@@ -103,14 +103,14 @@ wssRouter.mount('/connection','', function(request) {
 				"senderId": 1,
 				"requestId": 1,
 				"URL": "ws://localhost:8008/receiver/"+name
-			}));	
+			}));
 		}
 	});
 });
 
 var regex = new RegExp('^/session/.*$');
 wssRouter.mount(regex, '', function(request) {
-	var sessionConn = request.accept(request.origin);	
+	var sessionConn = request.accept(request.origin);
 	console.log("Session up");
 
 	var appName = request.resourceURL.pathname.replace('/session/','');
@@ -123,20 +123,18 @@ wssRouter.mount(regex, '', function(request) {
 	}
 });
 
-	function getIPAddress() {
-		var interfaces = require('os').networkInterfaces();
-		for (var devName in interfaces) {
-			var iface = interfaces[devName];
-
-			for (var i = 0; i < iface.length; i++) {
-				var alias = iface[i];
-				if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal)
-					return alias.address;
+function getIPAddress() {
+	var n = require('os').networkInterfaces();
+	var ip = []
+	for (var k in n) {
+		var inter = n[k];
+		for (var j in inter) {
+			if (inter[j].family === 'IPv4' && !inter[j].internal) {
+				return inter[j].address
 			}
 		}
-
-		return '0.0.0.0';
 	}
+}
 
 var addr = getIPAddress();
 console.log(addr);
@@ -181,7 +179,7 @@ function setupRoutes(addr) {
 		res.send(JSON.stringify({
 			URL: "ws://"+addr+":8008/session/"+req.params.app+"?1",
 			pingInterval: 3
-		}))	
+		}))
 	});
 
 	app.get('/apps', function(req, res){
