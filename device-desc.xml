@@ -7,7 +7,7 @@
         <URLBase>#base#</URLBase>
         <device>
             <deviceType>urn:schemas-upnp-org:device:dail:1</deviceType>
-            <friendlyName>nodecast</friendlyName>
+            <friendlyName>#name#</friendlyName>
             <manufacturer>Google Inc.</manufacturer>
             <modelName>Eureka Dongle</modelName>
             <UDN>uuid:#uuid#</UDN>

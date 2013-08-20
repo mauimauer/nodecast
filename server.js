@@ -8,6 +8,11 @@ var ssdp = require("peer-ssdp"),
 	app = express(),
 	querystring = require('querystring'),
 	request = require('superagent');
+var argv = require('optimist')
+    .usage('Usage: $0 --name [name]')
+    .demand(['name'])
+    .argv;
+var name = argv.name;
 
 app.set('port', 8008);
 
@@ -157,7 +162,7 @@ function setupApps(addr) {
 function setupRoutes(addr) {
 	app.get("/ssdp/device-desc.xml", function(req, res) {
 		fs.readFile('./device-desc.xml', 'utf8', function (err,data) {
-			data = data.replace("#uuid#", myUuid).replace("#base#","http://"+req.headers.host);
+			data = data.replace("#uuid#", myUuid).replace("#base#","http://"+req.headers.host).replace("#name#", name);
 			res.type('xml');
 			res.setHeader("Access-Control-Allow-Method", "GET, POST, DELETE, OPTIONS");
 			res.setHeader("Access-Control-Expose-Headers", "Location");
