@@ -13,3 +13,7 @@ Tested with the following services: YouTube (Desktop, Android), Google Music (An
 
 #### Notes
 Inspired by [leapcast](https://github.com/dz0ny/leapcast) by [dz0ny](ttps://github.com/dz0ny)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mauimauer/nodecast/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
