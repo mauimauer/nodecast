@@ -7,7 +7,10 @@ var ssdp = require("peer-ssdp"),
 	http = require('http'),
 	app = express(),
 	querystring = require('querystring'),
-	request = require('superagent');
+	request = require('superagent')
+	logger = require('morgan')
+	bodyParser = require('body-parser')
+	methodOverride = require('method-override');
 var argv = require('optimist')
     .usage('Usage: $0 --name [name]')
     .demand(['name'])
@@ -29,10 +32,9 @@ app.use(function(req, res, next) {
 });
 app.disable('x-powered-by');
 app.use(express.static(__dirname + '/public'));
-app.use(express.logger());
-app.use(app.router);
-app.use(express.bodyParser());
-app.use(express.methodOverride());
+app.use(logger());
+app.use(bodyParser());
+app.use(methodOverride());
 app.use(function (req, res, next) {
 	res.removeHeader("Connection");
 	next();
