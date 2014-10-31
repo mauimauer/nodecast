@@ -33,7 +33,9 @@ app.use(function(req, res, next) {
 app.disable('x-powered-by');
 app.use(express.static(__dirname + '/public'));
 app.use(logger());
-app.use(bodyParser());
+app.use(bodyParser.raw{
+	extended: true
+});
 app.use(methodOverride());
 app.use(function (req, res, next) {
 	res.removeHeader("Connection");
