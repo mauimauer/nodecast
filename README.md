@@ -11,6 +11,18 @@ ChromeCast Emulation with Node.js
 
 Tested with the following services: YouTube (Desktop, Android), Google Music (Android)
 
+dependencies
+========
+
+* peer-ssdp
+* node-uuid
+* express
+* morgan
+* body-parser
+* method-override
+* optimist
+* websocket
+
 #### Notes
 Inspired by [leapcast](https://github.com/dz0ny/leapcast) by [dz0ny](ttps://github.com/dz0ny)
 
